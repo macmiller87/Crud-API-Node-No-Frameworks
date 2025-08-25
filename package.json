@@ -2,13 +2,14 @@
   "name": "crud-api-node-no-frameworks",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
     "dev": "node --watch --env-file=.env src/server.js",
     "dev:debug": "node --inspect --env-file=.env src/server.js",
     "dc:up": "docker compose up -d && docker compose logs -f app",
-    "dc:down": "docker compose down --volumes --remove-orphans"
+    "dc:down": "docker compose down --volumes --remove-orphans",
+    "prisma:db:deploy:actions": "npx prisma migrate deploy && npx prisma generate"
   },
   "repository": {
     "type": "git",
