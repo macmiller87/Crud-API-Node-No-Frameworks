@@ -1,6 +1,9 @@
+node_modules
+yarn.lock
 .vscode
 .env
 src/controllers
 src/models
 src/routes
 src/services
+

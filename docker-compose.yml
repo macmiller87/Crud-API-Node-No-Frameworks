@@ -1,0 +1,25 @@
+services:
+  
+  postgres_db:                         
+    image: postgres                 
+    container_name: database_app
+    user: postgres
+    restart: always                 
+    ports:
+      - "5432:5432"
+    environment:                 
+    - POSTGRES_USER=${POSTGRES_USER_DOCKER}        
+    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_DOCKER}   
+    - POSTGRES_DB=${POSTGRES_DATABASE_DOCKER}  
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prisma-network      
+
+networks:
+  prisma-network:
+    name: prisma-network
+    
