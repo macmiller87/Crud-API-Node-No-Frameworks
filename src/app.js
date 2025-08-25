@@ -1,4 +1,7 @@
+import { UserRoutes } from "./routes/user.routes.js";
 import { createServer } from "node:http";
 
-export const server = createServer();
+const userRoutes = new UserRoutes();
+
+export const server = createServer(userRoutes.handler);
 
