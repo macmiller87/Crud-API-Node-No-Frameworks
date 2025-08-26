@@ -7,9 +7,19 @@ export class UserModelRepository {
         this._database = prismaService;
     }
 
-    async createuser(datas) {
+    async createUser(datas) {
         const create = await this._database._prismaService.users.create({
             data: datas
+        });
+
+        return create;
+    }
+
+    async createUserToken(user_id) {
+        const create = await this._database._prismaService.userTokens.create({
+            data: {
+                user_id: user_id
+            }
         });
 
         return create;
