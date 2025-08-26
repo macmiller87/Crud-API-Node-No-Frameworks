@@ -6,9 +6,9 @@ on:
       - "**.ts"
       - "**.json"
       - "**.yml"
-    branches: ["master"]
+    branches: ["master", "dev_prod", "dev_featsUser"]
   pull_request:
-    branches: ["master"]
+    branches: ["master", "dev_prod"]
 
   workflow_dispatch:
 
