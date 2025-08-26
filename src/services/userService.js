@@ -1,6 +1,8 @@
 import { UserModelRepository } from "../models/userModel.js";
-import { hash } from "bcryptjs";
 import { randomUUID } from "node:crypto";
+import { hash } from "bcryptjs";
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 
 export class UserService {
 
@@ -21,9 +23,21 @@ export class UserService {
             password: passwordHash,
         }
 
-        const createuser = await this._userRepository.createuser(user);
+        const createuser = await this._userRepository.createUser(user);
 
         return createuser;
+    }
+
+    async loginUser(datas) {
+
+        const acessToken = sign({ datas }, process.env.SECRET, {
+            subject: datas.user_id,
+            expiresIn: process.env.EXPIRES_IN
+        });
+
+        await this._userRepository.createUserToken(datas.user_id);
+
+        return acessToken;
     }
 
 }

@@ -10,6 +10,10 @@ export class UserRoutes {
             return await userController.createUser(request, response);
         }
 
+        if(request.url.startsWith("/loginUser") && request.method === "POST") {
+            return await userController.loginUser(request, response);
+        }
+
     }
 
 }
