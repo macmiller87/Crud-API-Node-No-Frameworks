@@ -32,12 +32,19 @@ export class UserService {
 
         const acessToken = sign({ datas }, process.env.SECRET, {
             subject: datas.user_id,
+            audience: "users",
+            issuer: "ADMIN",
             expiresIn: process.env.EXPIRES_IN
         });
 
         await this._userRepository.createUserToken(datas.user_id);
 
         return acessToken;
+    }
+
+    async listUser(user_id) {
+        const find = await this._userRepository.findUserById(user_id);
+        return find;
     }
 
 }

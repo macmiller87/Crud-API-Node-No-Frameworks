@@ -9,7 +9,7 @@
     "dev:debug": "node --inspect --env-file=.env src/server.js",
     "dc:up": "docker compose up -d && docker compose logs -f app",
     "dc:down": "docker compose down --volumes --remove-orphans",
-    "prisma:db:deploy:actions": "npx prisma migrate deploy && npx prisma generate"
+    "prisma:db:deploy:actions": "npx prisma migrate deploy && npx prisma generate && npx prisma db push"
   },
   "repository": {
     "type": "git",

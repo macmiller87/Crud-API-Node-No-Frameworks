@@ -25,10 +25,20 @@ export class UserModelRepository {
         return create;
     }
 
-     async findUserByEmail(email) {
+    async findUserByEmail(email) {
         const find = await this._database._prismaService.users.findUnique({
             where: {
                 email: email
+            }
+        });
+
+        return find;
+    }
+
+    async findUserById(user_id) {
+        const find = await this._database._prismaService.users.findFirst({
+            where: {
+                user_id: user_id
             }
         });
 

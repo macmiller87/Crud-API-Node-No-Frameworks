@@ -1,15 +1,18 @@
-import { compare } from "bcryptjs";
 import { UserModelRepository } from "../models/userModel.js";
 import { UserService } from "../services/userService.js"
+import { Middleware } from "../utils/auth/middleware.js";
+import { compare } from "bcryptjs";
 import { once } from "node:events";
 
 export class UserController {
     _userService;
     _userModelRepository;
+    _userMiddleware;
 
-    constructor(userModelRepository = new UserModelRepository(), userService = new UserService()) {
+    constructor(userModelRepository = new UserModelRepository(), userService = new UserService(), userMiddleware = new Middleware()) {
         this._userModelRepository = userModelRepository;
         this._userService = userService;
+        this._userMiddleware = userMiddleware;
     }
 
     async createUser(request, response) {
@@ -109,6 +112,44 @@ export class UserController {
             accessToken: userLogin
         }));
 
+    }
+
+    async listUser(request, response) {
+
+        const checkToken = await this._userMiddleware.ensureUserAuthenthicated(request, response);
+
+        if(checkToken === true) {
+
+            const url = request.url;
+            const splitUrl = url.split("/");
+            const user_id = splitUrl[2];
+
+            if(user_id === "" || user_id === undefined) {
+                response.writeHead(401);
+                return response.end(JSON.stringify({ message: "User ID must have a value !" }));
+            }
+
+            const findUserById = await this._userService.listUser(user_id);
+
+            if(!findUserById) {
+                response.writeHead(404);
+                return response.end(JSON.stringify({ message: "User not found !" }));
+            }
+
+            response.writeHead(200);
+            return response.end(JSON.stringify({
+                user: {
+                    user_id: findUserById.user_id,
+                    username: findUserById.username,
+                    email: findUserById.email,
+                    createdAt: findUserById.createdAt
+                }
+            }));
+
+        }
+
+        response.writeHead(401);
+        return response.end(JSON.stringify({ message: checkToken }));
     }
 
 }
