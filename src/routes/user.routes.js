@@ -3,15 +3,32 @@ import { UserController } from "../controllers/userController.js";
 const userController = new UserController();
 
 export class UserRoutes {
-
+    
     async handler(request, response) {
 
-        if(request.url.startsWith("/createUser") && request.method === "POST") {
-            return await userController.createUser(request, response);
-        }
+        const splitUrl = request.url.split("/");
+        const pathName = "/" + splitUrl[1];
 
-        if(request.url.startsWith("/loginUser") && request.method === "POST") {
-            return await userController.loginUser(request, response);
+        const checkHttpMethod = request.method === "POST" ? pathName : pathName + "/";
+
+        switch(checkHttpMethod) {
+            
+            case "/createUser":
+                await userController.createUser(request, response);
+                break;
+
+            case "/loginUser":
+                await userController.loginUser(request, response);
+                break;
+
+            case "/listUser/":
+                await userController.listUser(request, response);
+                break;
+            
+            default:
+                response.writeHead(404);
+                response.end(JSON.stringify({ message: "Route not found !" }));
+                break;
         }
 
     }
