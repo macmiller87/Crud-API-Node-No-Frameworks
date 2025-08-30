@@ -29,6 +29,10 @@ export class UserRoutes {
                 await userController.updateUser(request, response);
                 break;
             
+            case "/deleteUser/":
+                await userController.deleteUser(request, response);
+                break;
+            
             default:
                 response.writeHead(404);
                 response.end(JSON.stringify({ message: "Route not found !" }));

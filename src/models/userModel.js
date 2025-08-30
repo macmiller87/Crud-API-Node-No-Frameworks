@@ -38,6 +38,14 @@ export class UserModelRepository {
         return update;
     }
 
+    async deleteUser(user_id) {
+        await this._database._prismaService.users.delete({
+            where: {
+                user_id: user_id
+            }
+        });
+    }
+
     async findUserByEmail(email) {
         const find = await this._database._prismaService.users.findUnique({
             where: {

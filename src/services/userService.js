@@ -52,4 +52,8 @@ export class UserService {
         return update;
     }
 
+    async deleteUser(user_id) {
+        await this._userRepository.deleteUser(user_id);
+    }
+
 }
