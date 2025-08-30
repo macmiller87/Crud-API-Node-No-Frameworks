@@ -152,4 +152,46 @@ export class UserController {
         return response.end(JSON.stringify({ message: checkToken }));
     }
 
+    async updateUser(request, response) {
+
+        const checkToken = await this._userMiddleware.ensureUserAuthenthicated(request, response);
+
+        if(checkToken === true) {
+
+            const { username } = JSON.parse(await once(request, "data"));
+
+            const url = request.url;
+            const splitUrl = url.split("/");
+            const user_id = splitUrl[2];
+
+            if(user_id === "" || username === "") {
+                response.writeHead(401);
+                return response.end(JSON.stringify({ message: "All data must have a value !" }));
+            }
+
+            const findUserById = await this._userModelRepository.findUserById(user_id);
+
+            if(!findUserById) {
+                response.writeHead(404);
+                return response.end(JSON.stringify({ message: "User not found !" }));
+            }
+
+            const updateUserField = await this._userService.updateUser(user_id, username);
+
+            response.writeHead(201);
+            return response.end(JSON.stringify({
+                user: {
+                    user_id: updateUserField.user_id,
+                    username: updateUserField.username,
+                    email: updateUserField.email,
+                    createdAt: updateUserField.createdAt
+                }
+            }));
+
+        }
+
+        response.writeHead(401);
+        return response.end(JSON.stringify({ message: checkToken }));
+    }
+
 }

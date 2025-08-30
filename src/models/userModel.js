@@ -25,6 +25,19 @@ export class UserModelRepository {
         return create;
     }
 
+    async updateUser(user_id, username) {
+        const update = await this._database._prismaService.users.update({
+            where: {
+                user_id: user_id
+            },
+            data: {
+                username: username
+            }
+        });
+
+        return update;
+    }
+
     async findUserByEmail(email) {
         const find = await this._database._prismaService.users.findUnique({
             where: {
