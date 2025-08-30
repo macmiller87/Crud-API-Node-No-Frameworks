@@ -47,4 +47,9 @@ export class UserService {
         return find;
     }
 
+    async updateUser(user_id, username) {
+        const update = await this._userRepository.updateUser(user_id, username);
+        return update;
+    }
+
 }

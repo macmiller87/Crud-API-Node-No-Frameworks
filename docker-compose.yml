@@ -17,7 +17,23 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - prisma-network      
+      - prisma-network   
+
+  app:                              
+    build: .
+    container_name: server_app      
+    restart: always
+    ports:
+      - "8080:8080"  
+    tty: true                                
+    environment:
+      - DATABASE_URL=${DATABASE_URL_DOCKER}          
+    command: yarn prisma:db:deploy:docker                        
+    depends_on:
+      postgres_db: 
+        condition: service_healthy
+    networks:
+      - prisma-network   
 
 networks:
   prisma-network:

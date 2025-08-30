@@ -24,6 +24,10 @@ export class UserRoutes {
             case "/listUser/":
                 await userController.listUser(request, response);
                 break;
+
+            case "/updateUser/":
+                await userController.updateUser(request, response);
+                break;
             
             default:
                 response.writeHead(404);
