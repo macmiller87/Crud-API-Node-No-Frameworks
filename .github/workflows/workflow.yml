@@ -40,16 +40,11 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: "Set up API App"
-        run: yarn dev:actions
+      - name: "Set up Tests"
+        run: yarn test:actions
         env:
           HOST: ${{ vars.HOST }}
           PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}}
-
-      - name: "Set up Tests"
-        run: yarn test:actions
-        env:
-          BASE_URL: ${{ vars.BASE_URL }}
