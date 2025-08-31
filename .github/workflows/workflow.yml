@@ -33,7 +33,7 @@ jobs:
       - name: "Set up Prisma"
         run: yarn prisma:db:deploy:actions
         env:
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Set up Tests"
         run: yarn test:actions
@@ -41,4 +41,4 @@ jobs:
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
