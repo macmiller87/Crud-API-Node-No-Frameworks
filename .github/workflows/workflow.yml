@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       app:
+        image: crud-api-node-no-frameworks-app:latest
         ports:
           - 8080:8080
     steps:
