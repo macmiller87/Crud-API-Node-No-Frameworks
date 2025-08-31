@@ -12,8 +12,7 @@
     "dc:up": "docker compose up -d && docker compose logs -f app",
     "dc:down": "docker compose down --volumes --remove-orphans",
     "prisma:db:deploy:actions": "npx prisma migrate deploy && npx prisma generate && npx prisma db push",
-    "prisma:db:deploy:docker": "npx prisma migrate deploy && npx prisma generate && npx prisma db push && yarn dev",
-    "prisma:db:deploy:docker_tests": "npx prisma migrate deploy && npx prisma generate && npx prisma db push && yarn test"
+    "prisma:db:deploy:docker": "npx prisma migrate deploy && npx prisma generate && npx prisma db push && yarn dev"
   },
   "repository": {
     "type": "git",

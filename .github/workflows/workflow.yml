@@ -19,6 +19,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+
       - name: Install Dependencies
         run: yarn install
 
@@ -35,10 +40,16 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
+      - name: "Set up API App"
+        run: yarn prisma:db:deploy:docker
+        env:
+          HOST: ${{ vars.HOST }}
+          PORT: ${{ vars.PORT }}
+          SECRET: ${{ secrets.SECRET }}
+          EXPIRES_IN: ${{ vars.EXPIRES_IN }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}}
+
       - name: "Set up Tests"
         run: yarn test:actions
         env:
-          SECRET: ${{ secrets.SECRET }}
-          EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
