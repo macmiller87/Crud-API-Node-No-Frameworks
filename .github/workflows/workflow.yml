@@ -47,4 +47,4 @@ jobs:
           PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}}
