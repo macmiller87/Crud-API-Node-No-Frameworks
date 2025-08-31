@@ -43,4 +43,5 @@ jobs:
       - name: "Run Tests"
         run: yarn test:actions
         env:
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
           BASE_URL: ${{ vars.BASE_URL }}
