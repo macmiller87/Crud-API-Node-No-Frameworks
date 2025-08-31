@@ -39,15 +39,6 @@ jobs:
         run: yarn prisma:db:deploy:docker:actions
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-
-      - name: "Run API app"
-        run: yarn dev:actions 
-        env:
-          HOST: ${{ vars.HOST }}
-          PORT=: ${{ vars.PORT }}
-          SECRET: ${{ secrets.SECRET }}
-          EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
       
       - name: "Run Tests"
         run: yarn test:actions
