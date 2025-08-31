@@ -36,9 +36,6 @@ describe("User Controller (createUser) Tests", () => {
             assert.equal(datas.user.username, "Chaves");
             assert.equal(datas.user.email, "chaves@gmail.com");
             assert.ok(datas.user.hasOwnProperty("createdAt"));
-
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -68,8 +65,6 @@ describe("User Controller (createUser) Tests", () => {
                 },
             );
 
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -99,8 +94,6 @@ describe("User Controller (createUser) Tests", () => {
                 },
             );
 
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -130,8 +123,6 @@ describe("User Controller (createUser) Tests", () => {
                 },
             );
 
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -154,9 +145,6 @@ describe("User Controller (createUser) Tests", () => {
 
         }).then((datas) => {
             assert.strictEqual(datas.message, "All data must be a string !");
-
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -179,9 +167,6 @@ describe("User Controller (createUser) Tests", () => {
 
         }).then((datas) => {
             assert.strictEqual(datas.message, "All data must be a string !");
-
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -204,9 +189,6 @@ describe("User Controller (createUser) Tests", () => {
 
         }).then((datas) => {
             assert.strictEqual(datas.message, "All data must be a string !");
-
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -229,9 +211,6 @@ describe("User Controller (createUser) Tests", () => {
 
         }).then((datas) => {
             assert.strictEqual(datas.message, "Please Put a Valid Email !");
-
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
@@ -265,9 +244,6 @@ describe("User Controller (createUser) Tests", () => {
 
         }).then((datas) => {
             assert.strictEqual(datas.message, "User email is already in use !");
-
-        }).catch((error) => {
-            console.log(error);
         });
 
     });
