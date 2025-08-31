@@ -41,7 +41,7 @@ jobs:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Set up API App"
-        run: yarn dev
+        run: yarn dev:actions
         env:
           HOST: ${{ vars.HOST }}
           PORT: ${{ vars.PORT }}
