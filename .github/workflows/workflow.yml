@@ -41,7 +41,7 @@ jobs:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Set up API App"
-        run: yarn prisma:db:deploy:docker
+        run: yarn dev
         env:
           HOST: ${{ vars.HOST }}
           PORT: ${{ vars.PORT }}
