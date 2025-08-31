@@ -42,10 +42,9 @@ jobs:
           PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Run Tests"
         run: yarn test:actions
         env:
           BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
