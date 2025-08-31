@@ -37,6 +37,8 @@ jobs:
 
       - name: "Set up Prisma"
         run: yarn prisma:db:deploy:docker:actions
+        env:
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Run Tests"
         run: yarn test:actions
