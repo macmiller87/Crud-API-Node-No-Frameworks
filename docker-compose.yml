@@ -27,7 +27,7 @@ services:
       - "8080:8080"  
     tty: true                                
     environment:
-      - DATABASE_URL=${DATABASE_URL_DOCKER}          
+    - DATABASE_URL="postgresql://${POSTGRES_USER_DOCKER}:${POSTGRES_PASSWORD_DOCKER}@${POSTGRES_HOST_DOCKER}:${POSTGRES_PORT}/${POSTGRES_DATABASE_DOCKER}?schema=public"    
     command: yarn prisma:db:deploy:docker                        
     depends_on:
       postgres_db: 
