@@ -45,7 +45,7 @@ services:
     container_name: tests_app                                 
     command: yarn tests:actions                       
     depends_on:
-      app: 
+      postgres_db: 
         condition: service_healthy
     networks:
       - prisma-network
