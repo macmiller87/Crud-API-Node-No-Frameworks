@@ -40,13 +40,8 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: Wait for API to be ready
-        run: |
-         for i in {1..30}; do
-         nc -z localhost 8080 && echo "API is up" && break
-         echo "Waiting for API..."
-         sleep 1
-         done     
+      - name: Show Docker logs
+        run: docker compose logs app
       
       - name: "Run Tests"
         run: yarn test:actions
