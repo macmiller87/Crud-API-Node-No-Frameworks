@@ -49,6 +49,7 @@ jobs:
       - name: "Run Tests"
         run: |
           docker compose start app
+          npx prisma migrate deploy && npx prisma generate && npx prisma db push
           yarn test:actions
         env:
           POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
