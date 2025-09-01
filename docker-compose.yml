@@ -32,8 +32,13 @@ services:
     - POSTGRES_HOST_DOCKER=${POSTGRES_HOST_DOCKER}
     - POSTGRES_PORT=${POSTGRES_PORT}
     - POSTGRES_DATABASE_DOCKER=${POSTGRES_DATABASE_DOCKER}
-    - DATABASE_URL=${DATABASE_URL_DOCKER}      
-    command: yarn prisma:db:deploy:docker                        
+    - DATABASE_URL=${DATABASE_URL_DOCKER}
+    - HOST=${HOST}
+    - PORT=${PORT}
+    - SECRET=${SECRET}
+    - EXPIRES_IN=${EXPIRES_IN}
+    - BASE_URL=${BASE_URL}      
+    command: yarn prisma:db:deploy:docker:actions                        
     depends_on:
       postgres_db: 
         condition: service_healthy
