@@ -42,18 +42,21 @@ jobs:
           DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
           HOST: ${{ vars.HOST }}
           PORT=: ${{ vars.PORT }}
-          SECRET: ${{ secrets.SECRET }}
-          EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          BASE_URL: ${{ vars.BASE_URL }}
 
       - name: "Run Tests"
         run: |
           docker compose start app
           yarn test:actions
         env:
+          POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
+          POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
+          POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
+          DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
           HOST: ${{ vars.HOST }}
           PORT=: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
