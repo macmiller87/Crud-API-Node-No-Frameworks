@@ -34,7 +34,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
           POSTGRES_HOST: ${{ vars.POSTGRES_HOST_DOCKER }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-          POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE_DOCKER }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Set up Prisma"
