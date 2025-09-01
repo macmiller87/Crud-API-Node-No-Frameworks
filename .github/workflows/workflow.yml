@@ -47,7 +47,9 @@ jobs:
           BASE_URL: ${{ vars.BASE_URL }}
       
       - name: "Run Tests"
-        run: yarn test:actions
+        run: |
+          npx prisma migrate deploy && npx prisma generate && npx prisma db push 
+          yarn test:actions
         env:
           HOST: ${{ vars.HOST }}
           PORT=: ${{ vars.PORT }}
