@@ -44,9 +44,6 @@ jobs:
         run: yarn prisma:db:deploy:docker:actions
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-
-      - name: Show Docker logs
-        run: docker compose logs app
       
       - name: "Run Tests"
         run: yarn test:actions
