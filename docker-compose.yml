@@ -24,7 +24,9 @@ services:
     container_name: server_app      
     restart: always
     ports:
-      - "8080:8080"  
+      - "8080:8080"
+    env_file:
+      - .env                
     tty: true                                
     environment:
     - POSTGRES_USER_DOCKER=${POSTGRES_USER_DOCKER}
