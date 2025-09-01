@@ -70,4 +70,3 @@ jobs:
           PORT=: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          BASE_URL: ${{ vars.BASE_URL }}
