@@ -58,7 +58,7 @@ jobs:
           done
 
           yarn test:actions
-          echo "${{ vars.BASE_URL }}"
+          echo `${{ vars.BASE_URL }}`
         env:
           POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
