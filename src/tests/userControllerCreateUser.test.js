@@ -3,7 +3,7 @@ import { describe, it, beforeEach, afterEach } from "node:test";
 import assert from "node:assert";
 
 const prismaService = new PrismaService();
-const baseURL = process.env.BASE_URL || "http://prisma-network:8080";
+const baseURL = process.env.BASE_URL;
 
 describe("User Controller (createUser) Tests", () => {
 
@@ -23,9 +23,7 @@ describe("User Controller (createUser) Tests", () => {
             password: "2434"
         }
 
-        console.log(baseURL);
-
-        await fetch(`${baseURL}/createUser`, {
+        const req = await fetch(`${baseURL}/createUser`, {
             method: "POST",
             body: JSON.stringify(user)
 
@@ -39,6 +37,9 @@ describe("User Controller (createUser) Tests", () => {
             assert.equal(datas.user.email, "chaves@gmail.com");
             assert.ok(datas.user.hasOwnProperty("createdAt"));
         });
+
+        console.log(req);
+        console.log(req.url);
 
     });
 
