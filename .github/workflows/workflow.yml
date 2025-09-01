@@ -30,11 +30,11 @@ jobs:
       - name: "Set up Docker"
         run: docker compose up -d
         env:
-          POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
-          POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
-          POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
+          POSTGRES_HOST: ${{ vars.POSTGRES_HOST_DOCKER }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-          POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
+          POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Set up Prisma"
