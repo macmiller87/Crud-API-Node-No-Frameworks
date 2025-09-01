@@ -27,7 +27,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: "Set up Docker Set up Prisma"
+      - name: "Set up Docker and Set up Prisma"
         run: docker compose up -d
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
@@ -45,19 +45,11 @@ jobs:
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-      
-      - name: "Run Server API App"
-        run: yarn prisma:db:deploy:docker:actions 
-        env:
-          HOST: ${{ vars.HOST }}
-          PORT=: ${{ vars.PORT }}
-          SECRET: ${{ secrets.SECRET }}
-          EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Run Tests"
-        run: yarn test:actions
+        run: |
+          docker compose start app
+          yarn test:actions
         env:
           HOST: ${{ vars.HOST }}
           PORT=: ${{ vars.PORT }}
