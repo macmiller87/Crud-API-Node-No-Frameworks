@@ -48,7 +48,7 @@ jobs:
 
       - name: "Run Tests"
         run: |
-          docker compose start app
+          docker compose start app && docker compose logs -f app
           npx prisma migrate deploy && npx prisma generate && npx prisma db push
           yarn test:actions
         env:
