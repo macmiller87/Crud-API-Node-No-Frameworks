@@ -48,10 +48,3 @@ jobs:
       
       - name: "Run Tests"
         run: yarn test:actions
-        env:
-          HOST: ${{ vars.HOST }}
-          PORT=: ${{ vars.PORT }}
-          SECRET: ${{ secrets.SECRET }}
-          EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
