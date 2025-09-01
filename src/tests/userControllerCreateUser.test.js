@@ -229,13 +229,10 @@ describe("User Controller (createUser) Tests", () => {
             password: "1122"
         }
 
-        const req = await fetch(`${baseURL}/createUser`, {
+        await fetch(`${baseURL}/createUser`, {
             method: "POST",
             body: JSON.stringify(user1)
         });
-
-        console.log(req);
-        console.log(req.url);
 
         await fetch(`${baseURL}/createUser`, {
             method: "POST",
