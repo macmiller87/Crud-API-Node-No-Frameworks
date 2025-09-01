@@ -34,7 +34,6 @@ jobs:
           POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-          DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
 
       - name: "Set up Prisma"
         run: yarn prisma:db:deploy:docker:actions
@@ -48,5 +47,5 @@ jobs:
           PORT=: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
           BASE_URL: ${{ vars.BASE_URL }}
