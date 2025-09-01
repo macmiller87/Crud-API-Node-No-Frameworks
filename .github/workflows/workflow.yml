@@ -48,8 +48,15 @@ jobs:
 
       - name: "Run Tests"
         run: |
-          docker compose start app && docker compose logs -f app
+          docker compose start app
           npx prisma migrate deploy && npx prisma generate && npx prisma db push
+          
+          for i in {1..30}; do
+          nc -z localhost 8080 && echo "API is up" && break
+          echo "Waiting for API..."
+          sleep 1
+          done
+
           yarn test:actions
         env:
           POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
