@@ -23,7 +23,7 @@ describe("User Controller (createUser) Tests", () => {
             password: "2434"
         }
 
-        const req = await fetch(`${baseURL}/createUser`, {
+        await fetch(`${baseURL}/createUser`, {
             method: "POST",
             body: JSON.stringify(user)
 
@@ -37,9 +37,6 @@ describe("User Controller (createUser) Tests", () => {
             assert.equal(datas.user.email, "chaves@gmail.com");
             assert.ok(datas.user.hasOwnProperty("createdAt"));
         });
-
-        console.log(req);
-        console.log(req.url);
 
     });
 
@@ -232,10 +229,13 @@ describe("User Controller (createUser) Tests", () => {
             password: "1122"
         }
 
-        await fetch(`${baseURL}/createUser`, {
+        const req = await fetch(`${baseURL}/createUser`, {
             method: "POST",
             body: JSON.stringify(user1)
-        })
+        });
+
+        console.log(req);
+        console.log(req.url);
 
         await fetch(`${baseURL}/createUser`, {
             method: "POST",
