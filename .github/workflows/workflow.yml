@@ -48,7 +48,7 @@ jobs:
       
       - name: "Run Tests"
         run: |
-          npx prisma migrate deploy && npx prisma generate && npx prisma db push 
+          yarn prisma:db:deploy:docker:actions 
           yarn test:actions
         env:
           HOST: ${{ vars.HOST }}
