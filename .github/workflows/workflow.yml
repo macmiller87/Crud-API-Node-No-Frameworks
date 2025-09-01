@@ -50,7 +50,7 @@ jobs:
         run: |
           docker compose start app
           npx prisma migrate deploy && npx prisma generate && npx prisma db push
-          
+
           for i in {1..30}; do
           nc -z localhost 8080 && echo "API is up" && break
           echo "Waiting for API..."
@@ -65,7 +65,7 @@ jobs:
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
           HOST: ${{ vars.HOST }}
           PORT=: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
