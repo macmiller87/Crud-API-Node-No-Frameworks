@@ -3,7 +3,7 @@ import { describe, it, beforeEach, afterEach } from "node:test";
 import assert from "node:assert";
 
 const prismaService = new PrismaService();
-const baseURL = process.env.BASE_URL;
+const baseURL = process.env.BASE_URL || "http://localhost:8080";
 
 describe("User Controller (createUser) Tests", () => {
 
