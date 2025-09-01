@@ -28,7 +28,7 @@ jobs:
         run: yarn install
 
       - name: "Set up Docker"
-        run: docker compose up -d
+        run: docker compose up -d && docker compose logs -f app
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
@@ -38,12 +38,12 @@ jobs:
           POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: "Set up Prisma"
+      - name: "Set up Prisma and Run API App"
         run: yarn prisma:db:deploy:docker:actions
         env:
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
       
       - name: "Run Tests"
         run: yarn test:actions
@@ -53,9 +53,4 @@ jobs:
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-          POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
-          POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
-          POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
-          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-          POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
