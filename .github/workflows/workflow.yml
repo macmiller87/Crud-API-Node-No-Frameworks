@@ -33,15 +33,16 @@ jobs:
           POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
           POSTGRES_DB: ${{ vars.POSTGRES_DATABASE_DOCKER }}
-
-      - name: "Set up Prisma"
-        run: yarn prisma:db:deploy:docker:actions
-        env:
           POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
           POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+
+      - name: "Set up Prisma"
+        run: yarn prisma:db:deploy:docker:actions
+        env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: Show Docker logs
