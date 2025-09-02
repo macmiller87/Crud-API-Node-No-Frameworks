@@ -41,13 +41,10 @@ jobs:
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
           HOST: ${{ vars.HOST }}
-          PORT=: ${{ vars.PORT }}
+          PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-
-      - name: Docker logs container APP
-        run: docker compose logs -f app
 
       - name: "Run Tests"
         run: |
@@ -70,7 +67,7 @@ jobs:
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
           HOST: ${{ vars.HOST }}
-          PORT=: ${{ vars.PORT }}
+          PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
