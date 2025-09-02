@@ -46,11 +46,11 @@ jobs:
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
 
+      - name: Docker logs container APP
+        run: docker compose logs -f app
+
       - name: "Run Tests"
         run: |
-          docker compose up -d
-          npx prisma migrate deploy && npx prisma generate && npx prisma db push
-
           for i in {1..30}; do
           nc -z localhost 8080 && echo "API is up" && break
           echo "Waiting for API..."
@@ -68,7 +68,7 @@ jobs:
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
           HOST: ${{ vars.HOST }}
           PORT=: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
