@@ -39,7 +39,7 @@ jobs:
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
           HOST: ${{ vars.HOST }}
           PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
