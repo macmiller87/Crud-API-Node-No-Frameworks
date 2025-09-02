@@ -48,8 +48,7 @@ jobs:
 
       - name: "Run Tests"
         run: |
-          docker compose start postgres_db
-          docker compose start app
+          docker compose up -d
           npx prisma migrate deploy && npx prisma generate && npx prisma db push
 
           for i in {1..30}; do
