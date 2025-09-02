@@ -48,6 +48,8 @@ jobs:
 
       - name: Set up Prisma
         run: npx prisma migrate deploy && npx prisma generate && npx prisma db push
+        env:
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Run Tests"
         run: |
