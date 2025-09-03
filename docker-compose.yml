@@ -18,32 +18,19 @@ services:
       retries: 5
     networks:
       - prisma-network   
-      
-  app:                              
+
+  prisma:                              
     build: .
-    container_name: server_app      
-    restart: always
-    ports:
-      - "8080:8080"        
-    tty: true                                
+    container_name: prisma                            
     environment:
-    - POSTGRES_USER_DOCKER=${POSTGRES_USER_DOCKER}
-    - POSTGRES_PASSWORD_DOCKER=${POSTGRES_PASSWORD_DOCKER}
-    - POSTGRES_HOST_DOCKER=${POSTGRES_HOST_DOCKER}
-    - POSTGRES_PORT=${POSTGRES_PORT}
-    - POSTGRES_DATABASE_DOCKER=${POSTGRES_DATABASE_DOCKER}
-    - DATABASE_URL=${DATABASE_URL_DOCKER}
-    - HOST=${HOST}
-    - PORT=${PORT}
-    - SECRET=${SECRET}
-    - EXPIRES_IN=${EXPIRES_IN}
-    - BASE_URL=${BASE_URL}      
-    command: yarn prisma:db:deploy:docker:actions                        
+      - DATABASE_URL=${DATABASE_URL_DOCKER}          
+    command: yarn setup:prisma                        
     depends_on:
-      postgres_db: 
+      postgres_db:
         condition: service_healthy
     networks:
-      - prisma-network
+      - prisma-network  
+
       
 networks:
   prisma-network:

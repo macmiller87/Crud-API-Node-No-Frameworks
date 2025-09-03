@@ -4,7 +4,7 @@ export class PrismaService {
     _prismaService;
 
     constructor(prismaService = new PrismaClient()) {
-        this._prismaService = prismaService
+        this._prismaService = prismaService;
     }
 
 }
