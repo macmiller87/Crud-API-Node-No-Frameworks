@@ -3,7 +3,7 @@ name: Continuous integration
 on:
   push:
     paths:
-      - "**.ts"
+      - "**.js"
       - "**.json"
       - "**.yml"
     branches: ["master", "dev_prod", "dev_featsUser"]
@@ -19,22 +19,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+
       - name: Install Dependencies
         run: yarn install
 
       - name: "Set up Docker"
         run: docker compose up -d
         env:
+          POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
+          POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-
+          
       - name: Set up Prisma
         run: yarn setup:prisma
         env:
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
       - name: "Run Tests"
         run: yarn test:actions
@@ -45,4 +55,3 @@ jobs:
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
