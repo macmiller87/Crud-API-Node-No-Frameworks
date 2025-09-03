@@ -40,7 +40,7 @@ jobs:
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-
+          
       - name: Set up Prisma
         run: yarn setup:prisma
         env:
