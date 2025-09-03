@@ -1,18 +1,23 @@
 import { PrismaService } from "../database/prisma/prismaService.js"
-import { describe, it, beforeEach, afterEach } from "node:test";
+import { describe, it, before, after } from "node:test";
 import assert from "node:assert";
 
 const prismaService = new PrismaService();
 const baseURL = process.env.BASE_URL;
 
 describe("User Controller (createUser) Tests", () => {
+    let _server = {};
 
-    beforeEach(async () => {
+    before(async () => {
+        _server = (await import("../server.js")).server;
+        await new Promise(resolve => _server.once('listening', resolve));
+
         await prismaService._prismaService.users.deleteMany();
     });
 
-    afterEach(async () => {
+    after(async (done) => {
         await prismaService._prismaService.users.deleteMany();
+        _server.close(done);
     });
 
     it("Should be able to create a new User", async () => {
@@ -38,7 +43,7 @@ describe("User Controller (createUser) Tests", () => {
             assert.ok(datas.user.hasOwnProperty("createdAt"));
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -69,7 +74,7 @@ describe("User Controller (createUser) Tests", () => {
             );
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -100,7 +105,7 @@ describe("User Controller (createUser) Tests", () => {
             );
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -131,7 +136,7 @@ describe("User Controller (createUser) Tests", () => {
             );
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -156,7 +161,7 @@ describe("User Controller (createUser) Tests", () => {
             assert.strictEqual(datas.message, "All data must be a string !");
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -181,7 +186,7 @@ describe("User Controller (createUser) Tests", () => {
             assert.strictEqual(datas.message, "All data must be a string !");
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -203,10 +208,10 @@ describe("User Controller (createUser) Tests", () => {
             return response.json();
 
         }).then((datas) => {
-            assert.strictEqual(datas.message, "All data must be a string !");
+            assert.strictEqual(datas.message, "All data must be a string !")
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -231,7 +236,7 @@ describe("User Controller (createUser) Tests", () => {
             assert.strictEqual(datas.message, "Please Put a Valid Email !");
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });
@@ -253,7 +258,10 @@ describe("User Controller (createUser) Tests", () => {
         await fetch(`${baseURL}/createUser`, {
             method: "POST",
             body: JSON.stringify(user1)
-        })
+
+        }).catch((error) => {
+            console.log(error.msg);
+        });
 
         await fetch(`${baseURL}/createUser`, {
             method: "POST",
@@ -267,7 +275,7 @@ describe("User Controller (createUser) Tests", () => {
             assert.strictEqual(datas.message, "User email is already in use !");
 
         }).catch((error) => {
-            console.log(error);
+            console.log(error.msg);
         });
 
     });

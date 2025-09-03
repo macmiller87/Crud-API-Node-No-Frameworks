@@ -19,22 +19,19 @@ services:
     networks:
       - prisma-network   
 
-  app:                              
+  prisma:                              
     build: .
-    container_name: server_app      
-    restart: always
-    ports:
-      - "8080:8080"  
-    tty: true                                
+    container_name: prisma                            
     environment:
       - DATABASE_URL=${DATABASE_URL_DOCKER}          
-    command: yarn prisma:db:deploy:docker                        
+    command: yarn setup:prisma                        
     depends_on:
-      postgres_db: 
+      postgres_db:
         condition: service_healthy
     networks:
-      - prisma-network   
+      - prisma-network  
 
+      
 networks:
   prisma-network:
     name: prisma-network

@@ -30,14 +30,17 @@ jobs:
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: "Set up Prisma"
-        run: yarn prisma:db:deploy:actions
+      - name: Set up Prisma
+        run: yarn setup:prisma
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_DOCKER }}
 
-      - name: "Set up Tests"
+      - name: "Run Tests"
         run: yarn test:actions
         env:
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          HOST: ${{ vars.HOST }}
+          PORT: ${{ vars.PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           BASE_URL: ${{ vars.BASE_URL }}
