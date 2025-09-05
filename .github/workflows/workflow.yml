@@ -46,7 +46,7 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: "Run Tests"
+      - name: "Run API and Tests"
         run: |
           yarn dev:actions &
 
