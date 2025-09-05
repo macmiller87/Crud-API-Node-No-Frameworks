@@ -7,7 +7,7 @@ const prismaService = new PrismaService();
 
 describe("User Controller (createUser) Tests", () => {
 
-    before(async ()=> {
+    before(async () => {
         await prismaService._prismaService.users.deleteMany();
     });
 
