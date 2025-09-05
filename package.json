@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch --env-file=.env src/server.js",
-    "dev:actions": "node --watch src/server.js",
+    "dev:actions": "node src/server.js",
     "dev:debug": "node --inspect --env-file=.env src/server.js",
     "test": "node --test --experimental-test-coverage --env-file=.env",
     "test:actions": "node --test --experimental-test-coverage",
