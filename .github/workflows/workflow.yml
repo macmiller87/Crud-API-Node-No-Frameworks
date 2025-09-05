@@ -46,13 +46,6 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: "Run API"
-        run: yarn dev:actions &
-        env:
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-          HOST: ${{ vars.HOST }}
-          PORT: ${{ vars.PORT }}
-
       - name: "Run Tests"
         run: |
           for i in {1..30}; do
