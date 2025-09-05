@@ -59,6 +59,7 @@ jobs:
           nc -z localhost 8080 && echo "API is up" && break
           echo "Waiting for API..."
           sleep 1
+          done
 
           yarn test:actions
         env:
