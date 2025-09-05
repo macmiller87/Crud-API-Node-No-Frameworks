@@ -6,7 +6,7 @@ import assert from "node:assert";
 const prismaService = new PrismaService();
 
 describe("User Controller (createUser) Tests", () => {
-
+    
     before(async () => {
         await prismaService._prismaService.users.deleteMany();
     });
