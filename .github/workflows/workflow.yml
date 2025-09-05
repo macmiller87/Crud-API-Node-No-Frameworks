@@ -46,10 +46,15 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
+      - name: "Run App API"
+        run: yarn dev:actions
+        env:
+          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          HOST: ${{ vars.HOST }}
+          PORT: ${{ vars.PORT }}
+
       - name: "Run Tests"
         run: |
-          yarn dev:actions
-
           for i in {1..30}; do
           nc -z localhost 8080 && echo "API is up" && break
           echo "Waiting for API..."
