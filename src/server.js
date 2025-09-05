@@ -1,10 +1,8 @@
-import { UserRoutes } from "./routes/user.routes.js";
-import { createServer } from "node:http";
-
-const userRoutes = new UserRoutes();
+import { server } from "./app.js";
 
 const host = process.env.HOST;
 const port = process.env.PORT;
 
-export const server = createServer(userRoutes.handler)
-    .listen(port, host, () => { console.log(`Server is running at http://${host}:${port} 🔥🚀` ) });
+const http = server;
+
+http.listen(port, () => { console.log(`Server is running at http://${host}:${port} 🔥🚀` ) });
