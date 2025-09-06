@@ -48,8 +48,17 @@ jobs:
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
 
-      - name: "Run Tests"
-        run: yarn test:actions
+      - name: "Run API and Tests"
+        run: |
+          yarn dev:actions &
+
+          for i in {1..30}; do
+          nc -z localhost 8080 && echo "API is up" && break
+          echo "Waiting for API..."
+          sleep 1
+          done
+
+          yarn test:actions
         env:
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
           HOST: ${{ vars.HOST }}
