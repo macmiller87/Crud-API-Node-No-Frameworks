@@ -92,7 +92,7 @@ export class UserController {
             return response.end(JSON.stringify({ message: "User email not found or wrong !" }));
         }
 
-        const passwordMatch = compare(password, findUserByEmail.password);
+        const passwordMatch = await compare(password, findUserByEmail.password);
 
         if(!passwordMatch) {
             response.writeHead(401);
