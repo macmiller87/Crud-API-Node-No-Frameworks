@@ -35,14 +35,12 @@ jobs:
           POSTGRES_DB: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
-          POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
-          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
           DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
-          
+
       - name: Set up Prisma
         run: yarn setup:prisma
         env:
