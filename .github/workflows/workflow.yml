@@ -47,7 +47,7 @@ jobs:
           DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
 
       - name: Set up Prisma
-        run: yarn setup:prisma
+        run: yarn setup:prisma_tests
         env:
           DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
 
