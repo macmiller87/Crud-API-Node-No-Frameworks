@@ -1,0 +1,25 @@
+generator client2 {
+  provider = "prisma-client-js"
+  output = "../node_modules/@internal/prisma-second/client"
+}
+
+datasource db2 {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_TESTS")
+}
+
+model Users_Tests {
+  user_id   String       @id
+  username  String
+  email     String       @unique
+  password  String
+  createdAt DateTime     @default(now())
+  UserToken UserTokens_Tests[]
+}
+
+model UserTokens_Tests {
+  id        String   @id @default(uuid())
+  user_id   String
+  createdAt DateTime @default(now())
+  user      Users_Tests    @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+}

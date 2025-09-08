@@ -1,7 +1,8 @@
-const baseURL = process.env.BASE_URL;
+const host = process.env.HOST;
+const port = process.env.TESTS_PORT;
 
 export async function makePOSTRequests(endPoint, data) {
-    const request = await fetch(`${baseURL}/${endPoint}`, {
+    const request = await fetch(`http://${host}:${port}/${endPoint}`, {
         method: "POST",                             
         body: JSON.stringify(data)
     });
