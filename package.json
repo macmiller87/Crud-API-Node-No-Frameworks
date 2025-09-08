@@ -5,14 +5,15 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file=.env src/server.js",
+    "dev": "npx prisma generate --schema prisma/schema2.prisma && node --watch --env-file=.env src/server.js",
     "dev:actions": "node --watch src/server.js",
     "dev:debug": "node --inspect --env-file=.env src/server.js",
     "test": "node --test --experimental-test-coverage --env-file=.env",
     "test:actions": "node --test --experimental-test-coverage",
-    "dc:up": "docker compose up -d && docker compose logs -f prisma",
+    "dc:up": "docker compose up -d && docker compose logs -f prisma_app",
     "dc:down": "docker compose down --volumes --remove-orphans",
-    "setup:prisma": "npx prisma migrate deploy && npx prisma generate && npx prisma db push"
+    "setup:prisma_app": "npx prisma generate --schema prisma/schema.prisma && npx prisma migrate deploy --schema prisma/schema.prisma && npx prisma db push --schema prisma/schema.prisma",
+    "setup:prisma_tests": "npx prisma generate --schema prisma/schema2.prisma && npx prisma migrate deploy --schema prisma/schema2.prisma && npx prisma db push --schema prisma/schema2.prisma"
   },
   "repository": {
     "type": "git",

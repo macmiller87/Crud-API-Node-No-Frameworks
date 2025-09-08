@@ -37,14 +37,19 @@ jobs:
           POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
           POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
           POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
-          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_USER_DOCKER2: ${{ vars.POSTGRES_USER_DOCKER2 }}
+          POSTGRES_PASSWORD_DOCKER2: ${{ vars.POSTGRES_PASSWORD_DOCKER2 }}
+          POSTGRES_DATABASE_DOCKER2: ${{ vars.POSTGRES_DATABASE_DOCKER2 }}
+          POSTGRES_HOST_DOCKER2: ${{ vars.POSTGRES_HOST_DOCKER2 }}
           DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          DATABASE_URL_DOCKER2: ${{ vars.DATABASE_URL_DOCKER2 }}
+          DATABASE_URL_APP:  ${{ vars.DATABASE_URL_APP }}
+          DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
 
       - name: Set up Prisma
-        run: yarn setup:prisma
+        run: yarn setup:prisma_tests
         env:
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
 
       - name: "Run API and Tests"
         run: |
@@ -58,9 +63,12 @@ jobs:
 
           yarn test:actions
         env:
-          DATABASE_URL: ${{ vars.DATABASE_URL_LOCAL }}
+          DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
           HOST: ${{ vars.HOST }}
           PORT: ${{ vars.PORT }}
+          TESTS_PORT: ${{ vars.TESTS_PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
-          BASE_URL: ${{ vars.BASE_URL }}
+          FAKE_TOKEN: ${{ vars.FAKE_TOKEN }}
+          INVALID_TOKEN: ${{ vars.INVALID_TOKEN }}
+          FAKE_USER_ID: ${{ vars.FAKE_USER_ID }}

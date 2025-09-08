@@ -1,18 +1,18 @@
 import { makePOSTRequests } from "../../utils/FetchFunctionsTests/postFunction.js";
-import { PrismaService } from "../../database/prisma/prismaService.js"
+import { PrismaServiceTests } from "../in-memory-app/database/prismaServiceTests.js"
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert";                                                                     
 
-const prismaService = new PrismaService();
+const prismaService = new PrismaServiceTests();
 
 describe("UserController (loginUser) Tests", () => {
 
     before(async () => {
-        await prismaService._prismaService.users.deleteMany();
+        await prismaService._prismaServiceTests.users_Tests.deleteMany();
     });
 
     after(async () => {
-        await prismaService._prismaService.users.deleteMany();
+        await prismaService._prismaServiceTests.users_Tests.deleteMany();
     });
 
     it("should be able to login a user, if the paramethers are ok", async () => {

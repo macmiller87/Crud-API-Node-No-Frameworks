@@ -1,6 +1,6 @@
 services:
 
-  postgres_db:
+  postgres_db_app:
     image: postgres
     container_name: database_app
     user: postgres
@@ -19,14 +19,45 @@ services:
     networks:
       - prisma-network
 
-  prisma:
-    build: .
-    container_name: prisma
+  postgres_db_tests:
+    image: postgres
+    container_name: database_tests
+    user: postgres
+    restart: always
+    ports:
+      - "5433:5432"
     environment:
-      - DATABASE_URL=${DATABASE_URL_DOCKER}
-    command: yarn setup:prisma
+      - POSTGRES_USER=${POSTGRES_USER_DOCKER2}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_DOCKER2}
+      - POSTGRES_DB=${POSTGRES_DATABASE_DOCKER2}
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prisma-network
+
+  prisma_app:
+    build: .
+    container_name: prisma_app
+    environment:
+      - DATABASE_URL_APP=${DATABASE_URL_DOCKER}
+    command: yarn setup:prisma_app
     depends_on:
-      postgres_db:
+      postgres_db_app:
+        condition: service_healthy
+    networks:
+      - prisma-network
+
+  prisma_tests:
+    build: .
+    container_name: prisma_tests
+    environment:
+      - DATABASE_URL_TESTS=${DATABASE_URL_DOCKER2}
+    command: yarn setup:prisma_tests
+    depends_on:
+      postgres_db_tests:
         condition: service_healthy
     networks:
       - prisma-network
