@@ -1,19 +1,20 @@
 import { makePOSTRequests } from "../../utils/FetchFunctionsTests/postFunction.js";
 import { makePATCHRequests } from "../../utils/FetchFunctionsTests/patchFunction.js";
-import { PrismaServiceTests } from "../in-memory-app/database/prismaServiceTests.js"
+import { PrismaService } from "../../database/prisma/prismaService.js";
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert";                                                                     
 
-const prismaService = new PrismaServiceTests();
+const prismaService = new PrismaService();
 
 describe("UserController (updateUser) Tests", () => {
 
     before(async () => {
-        await prismaService._prismaServiceTests.users_Tests.deleteMany();
+        await prismaService._prismaService.users.deleteMany();
     });
 
     after(async () => {
-        await prismaService._prismaServiceTests.users_Tests.deleteMany();
+        await prismaService._prismaService.users.deleteMany();
+        await prismaService._prismaService.$disconnect();
     });
 
     it("should be able to update a user, if the paramethers are ok", async () => {
@@ -44,7 +45,7 @@ describe("UserController (updateUser) Tests", () => {
 
         const data3 = await makePATCHRequests(endPoint3, request2);
 
-        assert.ok("user_id" in data3.user);
+        assert.ok(data3.user.hasOwnProperty("user_id"));
         assert.strictEqual(data3.user.username, "Herman Tylerr");
         assert.equal(data3.user.email, user.email);
         assert.ok(data3.user.hasOwnProperty("createdAt"));

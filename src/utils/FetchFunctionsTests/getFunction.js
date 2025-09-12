@@ -1,5 +1,5 @@
 const host = process.env.HOST;
-const port = process.env.TESTS_PORT;
+const port = process.env.PORT;
 
 export async function makeGETRequests(endPoint, data) {
     
