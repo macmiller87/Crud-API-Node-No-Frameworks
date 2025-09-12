@@ -28,7 +28,7 @@ jobs:
         run: yarn install
 
       - name: "Set up Docker"
-        run: docker-compose --file docker-compose.actions.yml up -d
+        run: docker-compose -f docker-compose.actions.yml up -d
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
