@@ -1,24 +1,5 @@
 services:
 
-  postgres_db_app:
-    image: postgres
-    container_name: database_app
-    user: postgres
-    restart: always
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER_DOCKER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_DOCKER}
-      - POSTGRES_DB=${POSTGRES_DATABASE_DOCKER}  
-    healthcheck:
-      test: [ "CMD", "pg_isready" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - prisma-network
-
   postgres_db_tests:
     image: postgres
     container_name: database_tests
@@ -38,20 +19,9 @@ services:
     networks:
       - prisma-network
 
-  prisma_app:
-    build: .
-    container_name: prisma_app
-    environment:   
-      - DATABASE_URL=${DATABASE_URL_DOCKER}
-    command: yarn setup:prisma
-    depends_on:
-      postgres_db_app:
-        condition: service_healthy
-    networks:
-      - prisma-network
-
   prisma_tests:
-    build: .
+    build:
+      dockerfile: Dockerfile
     container_name: prisma_tests
     environment:
       - DATABASE_URL=${DATABASE_URL_DOCKER2}

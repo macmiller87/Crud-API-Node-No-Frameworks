@@ -1,19 +1,20 @@
 import { makePOSTRequests } from "../../utils/FetchFunctionsTests/postFunction.js";
 import { makeGETRequests } from "../../utils/FetchFunctionsTests/getFunction.js";
-import { PrismaServiceTests } from "../in-memory-app/database/prismaServiceTests.js"
+import { PrismaService } from "../../database/prisma/prismaService.js";
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert";                                                                     
 
-const prismaService = new PrismaServiceTests();
+const prismaService = new PrismaService();
 
 describe("UserController (listUser) Tests", () => {
 
     before(async () => {
-        await prismaService._prismaServiceTests.users_Tests.deleteMany();
+        await prismaService._prismaService.users.deleteMany();
     });
 
     after(async () => {
-        await prismaService._prismaServiceTests.users_Tests.deleteMany();
+        await prismaService._prismaService.users.deleteMany();
+        await prismaService._prismaService.$disconnect();
     });
 
     it("should be able to List a user, if the paramethers are ok", async () => {
@@ -43,7 +44,7 @@ describe("UserController (listUser) Tests", () => {
 
         const data3 = await makeGETRequests(endPoint3, request2);
 
-        assert.ok("user_id" in data3.user);
+        assert.ok(data2.user.hasOwnProperty("user_id"));
         assert.equal(data3.user.username, user.username);
         assert.equal(data3.user.email, user.email);
         assert.ok(data3.user.hasOwnProperty("createdAt"));

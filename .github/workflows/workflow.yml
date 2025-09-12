@@ -28,28 +28,22 @@ jobs:
         run: yarn install
 
       - name: "Set up Docker"
-        run: docker compose up -d
+        run: docker compose -f docker-compose.actions.yml up -d
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER_DOCKER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
           POSTGRES_DB: ${{ vars.POSTGRES_DATABASE_DOCKER }}
-          POSTGRES_USER_DOCKER: ${{ vars.POSTGRES_USER_DOCKER }}
-          POSTGRES_PASSWORD_DOCKER: ${{ vars.POSTGRES_PASSWORD_DOCKER }}
-          POSTGRES_DATABASE_DOCKER: ${{ vars.POSTGRES_DATABASE_DOCKER }}
-          POSTGRES_HOST_DOCKER: ${{ vars.POSTGRES_HOST_DOCKER }}
           POSTGRES_USER_DOCKER2: ${{ vars.POSTGRES_USER_DOCKER2 }}
           POSTGRES_PASSWORD_DOCKER2: ${{ vars.POSTGRES_PASSWORD_DOCKER2 }}
           POSTGRES_DATABASE_DOCKER2: ${{ vars.POSTGRES_DATABASE_DOCKER2 }}
           POSTGRES_HOST_DOCKER2: ${{ vars.POSTGRES_HOST_DOCKER2 }}
-          DATABASE_URL_DOCKER: ${{ vars.DATABASE_URL_DOCKER }}
           DATABASE_URL_DOCKER2: ${{ vars.DATABASE_URL_DOCKER2 }}
-          DATABASE_URL_APP:  ${{ vars.DATABASE_URL_APP }}
-          DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
+          DATABASE_URL: ${{ vars.DATABASE_URL }}
 
       - name: Set up Prisma
-        run: yarn setup:prisma_tests
+        run: yarn setup:prisma
         env:
-          DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_TESTS }}
 
       - name: "Run API and Tests"
         run: |
@@ -63,10 +57,9 @@ jobs:
 
           yarn test:actions
         env:
-          DATABASE_URL_TESTS: ${{ vars.DATABASE_URL_TESTS }}
+          DATABASE_URL: ${{ vars.DATABASE_URL_TESTS }}
           HOST: ${{ vars.HOST }}
           PORT: ${{ vars.PORT }}
-          TESTS_PORT: ${{ vars.TESTS_PORT }}
           SECRET: ${{ secrets.SECRET }}
           EXPIRES_IN: ${{ vars.EXPIRES_IN }}
           FAKE_TOKEN: ${{ vars.FAKE_TOKEN }}

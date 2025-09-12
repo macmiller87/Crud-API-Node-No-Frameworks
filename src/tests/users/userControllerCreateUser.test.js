@@ -1,18 +1,19 @@
 import { makePOSTRequests } from "../../utils/FetchFunctionsTests/postFunction.js"
-import { PrismaServiceTests } from "../in-memory-app/database/prismaServiceTests.js"
+import { PrismaService } from "../../database/prisma/prismaService.js";
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert";
 
-const prismaService = new PrismaServiceTests();
+const prismaService = new PrismaService();
 
 describe("User Controller (createUser) Tests", () => {
     
     before(async () => {
-        await prismaService._prismaServiceTests.users_Tests.deleteMany();
+        await prismaService._prismaService.users.deleteMany();
     });
 
     after(async () => {
-        await prismaService._prismaServiceTests.users_Tests.deleteMany();
+        await prismaService._prismaService.users.deleteMany();
+        await prismaService._prismaService.$disconnect();
     });
 
     it("Should be able to create a new User", async () => {
@@ -26,7 +27,7 @@ describe("User Controller (createUser) Tests", () => {
         const endPoint = "createUser";
         const data = await makePOSTRequests(endPoint, user);
 
-        assert.ok("user_id" in data.user);
+        assert.ok(data.user.hasOwnProperty("user_id"));
         assert.equal(data.user.username, "Chaves");
         assert.equal(data.user.email, "chaves@gmail.com");
         assert.ok(data.user.hasOwnProperty("createdAt"));

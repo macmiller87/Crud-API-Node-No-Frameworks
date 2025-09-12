@@ -16,13 +16,11 @@ export class UserModelRepository {
     }
 
     async createUserToken(user_id) {
-        const create = await this._database._prismaService.userTokens.create({
+        await this._database._prismaService.userTokens.create({
             data: {
                 user_id: user_id
             }
         });
-
-        return create;
     }
 
     async updateUser(user_id, username) {
