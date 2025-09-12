@@ -21,7 +21,6 @@ services:
 
   prisma_tests:
     build:
-      context: /
       dockerfile: Dockerfile
     container_name: prisma_tests
     environment:
