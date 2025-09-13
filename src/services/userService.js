@@ -28,16 +28,16 @@ export class UserService {
         return createuser;
     }
 
-    async loginUser(datas) {
+    async loginUser(user) {
 
-        const acessToken = sign({ datas }, process.env.SECRET, {
-            subject: datas.user_id,
+        const acessToken = sign({ user }, process.env.SECRET, {
+            subject: user.user_id,
             audience: "users",
             issuer: "ADMIN",
             expiresIn: process.env.EXPIRES_IN
         });
 
-        await this._userRepository.createUserToken(datas.user_id);
+        await this._userRepository.createUserToken(user.user_id);
 
         return acessToken;
     }
