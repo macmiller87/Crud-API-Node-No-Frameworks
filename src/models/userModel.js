@@ -24,6 +24,7 @@ export class UserModelRepository {
                 }
             });  
         }catch(error) {}
+      
     }
 
     async updateUser(user_id, username) {
