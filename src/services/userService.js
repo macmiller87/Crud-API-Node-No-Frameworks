@@ -43,7 +43,7 @@ export class UserService {
     }
 
     async listUser(user_id) {
-        const find = await this._userRepository.findUserById(user_id);
+        const find = await this._userRepository.listUser(user_id);
         return find;
     }
 

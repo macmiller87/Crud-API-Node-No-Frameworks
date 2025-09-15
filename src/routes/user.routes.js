@@ -1,6 +1,8 @@
 import { UserController } from "../controllers/userController.js";
+import { ProductsController } from "../controllers/productsController.js";
 
 const userController = new UserController();
+const productController = new ProductsController();
 
 export class UserRoutes {
     
@@ -31,6 +33,10 @@ export class UserRoutes {
             
             case "/deleteUser/":
                 await userController.deleteUser(request, response);
+                break;
+
+            case "/createProduct":
+                await productController.createProduct(request, response);
                 break;
             
             default:

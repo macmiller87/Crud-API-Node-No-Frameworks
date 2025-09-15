@@ -142,7 +142,8 @@ export class UserController {
                     user_id: findUserById.user_id,
                     username: findUserById.username,
                     email: findUserById.email,
-                    createdAt: findUserById.createdAt
+                    createdAt: findUserById.createdAt,
+                    products: findUserById.Products
                 }
             }));
 
