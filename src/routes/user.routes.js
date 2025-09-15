@@ -38,6 +38,14 @@ export class UserRoutes {
             case "/createProduct":
                 await productController.createProduct(request, response);
                 break;
+
+            case "/listProduct/":
+                await productController.listProduct(request, response);
+                break;
+
+            case "/updateProduct/":
+                await productController.updateProduct(request, response);
+                break;
             
             default:
                 response.writeHead(404);
