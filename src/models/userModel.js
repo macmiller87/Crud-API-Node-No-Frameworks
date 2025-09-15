@@ -27,6 +27,19 @@ export class UserModelRepository {
       
     }
 
+    async listUser(user_id) {
+        const listUser = await this._database._prismaService.users.findUnique({
+            where: {
+                user_id: user_id
+            },
+            include: {
+                Products: true
+            }
+        });
+
+        return listUser;
+    }
+
     async updateUser(user_id, username) {
         const update = await this._database._prismaService.users.update({
             where: {

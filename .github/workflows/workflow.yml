@@ -6,7 +6,7 @@ on:
       - "**.js"
       - "**.json"
       - "**.yml"
-    branches: ["master", "dev_prod", "dev_featsUser"]
+    branches: ["master", "dev_prod", "dev_featsUser", "dev_featsProducts"]
   pull_request:
     branches: ["master", "dev_prod"]
 
