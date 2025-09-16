@@ -186,5 +186,5 @@ export class ProductsController {
         response.writeHead(401);
         return response.end(JSON.stringify({ message: checkToken }));
     }
-
+  
 }
