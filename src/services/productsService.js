@@ -22,4 +22,8 @@ export class ProductsService {
         return update;
     }
 
+    async deleteProduct(product_id) {
+        await this._productsModelRepository.deleteProduct(product_id);
+    }
+
 }

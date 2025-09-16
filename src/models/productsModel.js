@@ -38,6 +38,14 @@ export class ProductsModelRepository {
         return update;
     }
 
+    async deleteProduct(product_id) {
+        await this._database._prismaService.products.delete({
+            where: {
+                product_id: product_id
+            }
+        });
+    }
+
     async findProductById(product_id) {
         const find = await this._database._prismaService.products.findUnique({
             where: {
