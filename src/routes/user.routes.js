@@ -46,6 +46,10 @@ export class UserRoutes {
             case "/updateProduct/":
                 await productController.updateProduct(request, response);
                 break;
+
+            case "/deleteProduct/":
+                await productController.deleteProduct(request, response);
+                break;
             
             default:
                 response.writeHead(404);

@@ -133,7 +133,7 @@ export class ProductsController {
 
             if(!findProductById) {
                 response.writeHead(404);
-                return response.end(JSON.stringify({ message: "User not found !" }));
+                return response.end(JSON.stringify({ message: "Product not found !" }));
             }
 
             const updateProduct = await this._productsService.updateProduct(product_id, price);
@@ -155,4 +155,36 @@ export class ProductsController {
         return response.end(JSON.stringify({ message: checkToken }));
     }
 
+    async deleteProduct(request, response) {
+
+        const checkToken = await this._userMiddleware.ensureUserAuthenthicated(request, response);
+
+        if(checkToken === true) {
+
+            const url = request.url;
+            const splitUrl = url.split("/");
+            const product_id = splitUrl[2];
+
+            if(product_id === "") {
+                response.writeHead(401);
+                return response.end(JSON.stringify({ message: "Product ID must have a value !" }));
+            }
+
+            const findProductById = await this._productsModelRepository.findProductById(product_id);
+
+            if(!findProductById) {
+                response.writeHead(404);
+                return response.end(JSON.stringify({ message: "Product not found !" }));
+            }
+
+            await this._productsService.deleteProduct(product_id);
+
+            response.writeHead(200);
+            return response.end(JSON.stringify({ message: "Product deleted with sucess !" }));
+        }
+
+        response.writeHead(401);
+        return response.end(JSON.stringify({ message: checkToken }));
+    }
+  
 }
