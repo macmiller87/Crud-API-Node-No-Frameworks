@@ -8,8 +8,8 @@
     "dev": "node --watch --env-file=.env src/server.js",
     "dev:actions": "node --watch src/server.js",
     "dev:debug": "node --inspect --env-file=.env src/server.js",
-    "test": "node --test --inspect --experimental-test-coverage --env-file=.env",
-    "test:actions": "node --test --inspect --experimental-test-coverage",
+    "test": "node --test --inspect --no-warnings --experimental-test-coverage --env-file=.env",
+    "test:actions": "node --test --inspect --no-warnings --experimental-test-coverage",
     "dc:up": "docker compose up -d && docker compose logs -f prisma_tests",
     "dc:down": "docker compose down --volumes --remove-orphans",
     "setup:prisma": "npx prisma generate && npx prisma migrate deploy && npx prisma db push"
